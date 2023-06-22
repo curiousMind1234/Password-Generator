@@ -8,16 +8,20 @@ import { ReactComponent as Refresh } from '../../assets/icons/refresh.svg'
 
 import './index.css'
 
+
+
 const PasswordGenerator = () => {
   const [passwordLength, setPasswordLength] = useState(8)
   const [upperCase, setUpperCase] = useState(false)
   const [lowerCase, setLowerCase] = useState(false)
   const [number, setNumber] = useState(false)
   const [specialChar, setSpecialChar] = useState(false)
-  const [password, setPassword] = useState('')
+  const [password, setPassword] = useState('');
 
   const [strength, setStrength] = useState('')
-  const [copy, setCopy] = useState('Copy')
+  const [copy, setCopy] = useState('Copy');
+  const [colors, setColor] = useState("#FF0000")
+  //const color = colors[strength]
 
   const onChangePasswordLength = (value) => {
     setPasswordLength(value);
@@ -50,18 +54,17 @@ const PasswordGenerator = () => {
   }
 
   const calculateStrength = () => {
-    if (upperCase && lowerCase && number && specialChar && password.length <= 14) {
-      setStrength('Strong')
-    } else if (
-      upperCase &&
-      lowerCase &&
-      specialChar &&
-      password.length >= 8 &&
-      password.length <= 13
-    ) {
-      setStrength('Medium')
-    } else if (upperCase && password.length >= 5 && password.length <= 7) {
-      setStrength('Weak')
+    if(password.length === 0) return;
+    if (password.length >= 12) {
+      setStrength('Strong');
+      setColor("#12b40e");
+      console.log("color", colors)
+    } else if (password.length >= 8 && password.length <= 11) {
+      setStrength('Medium');
+      setColor("#ffa200");
+    } else if (password.length >= 2 && password.length <= 7) {
+      setStrength('Weak');
+      setColor('#ff0000');
     }
     console.log('strength:', strength)
   }
@@ -129,8 +132,8 @@ const PasswordGenerator = () => {
           <Copy /> {copy}
         </button>
       </div>
-      <span>{}</span>
-      <span className="fw-500">{strength}</span>
+      
+      <p style={{color : `${colors}`, fontWeight:'bold', marginLeft:"10px", marginTop:"15px"}} >{strength}</p>
       <div className="slider">
         <div>
           <label id="slider-label">Password Length: </label>
