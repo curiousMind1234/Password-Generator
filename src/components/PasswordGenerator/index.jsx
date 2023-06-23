@@ -91,28 +91,41 @@ const PasswordGenerator = () => {
   }
 
   const generatePassword = () => {
-    const password = []
-    const length = passwordLength
-    console.log('lenght:', length)
+    const newpassword = [];
+    const length = passwordLength;
+    console.log("length:", length);
     const characters =
-      'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+={[}]|<?/'
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+={[}]|<?/";
 
-    for (let i = 0; i < length; i++) {
-      const index = Math.floor(Math.random() * characters.length)
-      if (upperCase && characters[index] >= 'A' && characters[index] <= 'Z') {
-        password.push(characters[index])
-      } else if (lowerCase && characters[index] >= 'a' && characters[index] <= 'z') {
-        password.push(characters[index])
-      } else if (number && characters[index] >= '0' && characters[index] <= '9') {
-        password.push(characters[index])
-      } else if (specialChar && characters[index] >= '!' && characters[index] <= '/') {
-        password.push(characters[index])
+    do {
+      const index = Math.floor(Math.random() * characters.length);
+      if (upperCase && characters[index] >= "A" && characters[index] <= "Z") {
+        newpassword.push(characters[index]);
+      } else if (
+        lowerCase &&
+        characters[index] >= "a" &&
+        characters[index] <= "z"
+      ) {
+        newpassword.push(characters[index]);
+      } else if (
+        number &&
+        characters[index] >= "0" &&
+        characters[index] <= "9"
+      ) {
+        newpassword.push(characters[index]);
+      } else if (
+        specialChar &&
+        characters[index] >= "!" &&
+        characters[index] <= "/"
+      ) {
+        newpassword.push(characters[index]);
       }
-    }
-    setPassword(password.join(''))
-    calculateStrength()
-  }
+    }while(newpassword.length !== length)
 
+    setPassword(newpassword.join(""));
+    console.log(newpassword.join(""));
+    calculateStrength();
+  };
   return (
     <div className="password-wrapper">
       <div className="gif">
