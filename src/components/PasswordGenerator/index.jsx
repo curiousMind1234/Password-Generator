@@ -4,11 +4,8 @@ import { useState } from 'react'
 
 import passwordGif from '../../assets/gif/password.gif'
 import { ReactComponent as Copy } from '../../assets/icons/copy.svg'
-import { ReactComponent as Refresh } from '../../assets/icons/refresh.svg'
 
 import './index.css'
-
-
 
 const PasswordGenerator = () => {
   const [passwordLength, setPasswordLength] = useState(8)
@@ -16,15 +13,14 @@ const PasswordGenerator = () => {
   const [lowerCase, setLowerCase] = useState(false)
   const [number, setNumber] = useState(false)
   const [specialChar, setSpecialChar] = useState(false)
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('')
 
   const [strength, setStrength] = useState('')
-  const [copy, setCopy] = useState('Copy');
-  const [colors, setColor] = useState("#FF0000")
-  //const color = colors[strength]
+  const [copy, setCopy] = useState('Copy')
+  const [colors, setColor] = useState('#FF0000')
 
   const onChangePasswordLength = (value) => {
-    setPasswordLength(value);
+    setPasswordLength(value)
     calculateStrength()
   }
 
@@ -54,19 +50,19 @@ const PasswordGenerator = () => {
   }
 
   const calculateStrength = () => {
-    if(password.length === 0) return;
+    if (password.length === 0) return
+
     if (password.length >= 12) {
-      setStrength('Strong');
-      setColor("#12b40e");
-      console.log("color", colors)
+      setStrength('Strong')
+      setColor('#12b40e')
+      console.log('color', colors)
     } else if (password.length >= 8 && password.length <= 11) {
-      setStrength('Medium');
-      setColor("#ffa200");
+      setStrength('Medium')
+      setColor('#ffa200')
     } else if (password.length >= 2 && password.length <= 7) {
-      setStrength('Weak');
-      setColor('#ff0000');
+      setStrength('Weak')
+      setColor('#ff0000')
     }
-    console.log('strength:', strength)
   }
 
   async function copyContent() {
@@ -84,48 +80,34 @@ const PasswordGenerator = () => {
       setTimeout(() => {
         setCopy('Copy')
       }, 2000)
-      console.log('copy text:', copy)
     } catch (e) {
       setCopy('Failed')
     }
   }
 
   const generatePassword = () => {
-    const newpassword = [];
-    const length = passwordLength;
-    console.log("length:", length);
+    const newpassword = []
+    const length = passwordLength
+    console.log('length:', length)
     const characters =
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+={[}]|<?/";
+      'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+={[}]|<?/'
 
     do {
-      const index = Math.floor(Math.random() * characters.length);
-      if (upperCase && characters[index] >= "A" && characters[index] <= "Z") {
-        newpassword.push(characters[index]);
-      } else if (
-        lowerCase &&
-        characters[index] >= "a" &&
-        characters[index] <= "z"
-      ) {
-        newpassword.push(characters[index]);
-      } else if (
-        number &&
-        characters[index] >= "0" &&
-        characters[index] <= "9"
-      ) {
-        newpassword.push(characters[index]);
-      } else if (
-        specialChar &&
-        characters[index] >= "!" &&
-        characters[index] <= "/"
-      ) {
-        newpassword.push(characters[index]);
+      const index = Math.floor(Math.random() * characters.length)
+      if (upperCase && characters[index] >= 'A' && characters[index] <= 'Z') {
+        newpassword.push(characters[index])
+      } else if (lowerCase && characters[index] >= 'a' && characters[index] <= 'z') {
+        newpassword.push(characters[index])
+      } else if (number && characters[index] >= '0' && characters[index] <= '9') {
+        newpassword.push(characters[index])
+      } else if (specialChar && characters[index] >= '!' && characters[index] <= '/') {
+        newpassword.push(characters[index])
       }
-    }while(newpassword.length !== length)
+    } while (newpassword.length !== length)
 
-    setPassword(newpassword.join(""));
-    console.log(newpassword.join(""));
-    calculateStrength();
-  };
+    setPassword(newpassword.join(''))
+    calculateStrength()
+  }
   return (
     <div className="password-wrapper">
       <div className="gif">
@@ -145,8 +127,10 @@ const PasswordGenerator = () => {
           <Copy /> {copy}
         </button>
       </div>
-      
-      <p style={{color : `${colors}`, fontWeight:'bold', marginLeft:"10px", marginTop:"15px"}} >{strength}</p>
+
+      <p style={{ color: `${colors}`, fontWeight: 'bold', marginLeft: '10px', marginTop: '15px' }}>
+        {strength}
+      </p>
       <div className="slider">
         <div>
           <label id="slider-label">Password Length: </label>
